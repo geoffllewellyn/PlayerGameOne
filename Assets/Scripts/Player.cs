@@ -17,18 +17,22 @@ public class Player : MonoBehaviour {
         viewCamera = Camera.main;
     }
 
-    // update is called every frame
-    void Update() {
-        float x = Mathf.Abs (controller.transform.position.x);
-        float y = Mathf.Abs (controller.transform.position.y);
-        float z = Mathf.Abs (controller.transform.position.z);
+    void PrintLoc(float x, float y, float z) {
         // Temp, remove later: Print location vector
         string _msg = string.Format("\nX: {0}\nY: {1}\nZ: {2}", 
                                     x,
                                     y,
                                     z
                                     );
-        Debug.Log(_msg);
+        // Debug.Log(_msg);
+    }
+
+    // update is called every frame
+    void Update() {
+        float x = Mathf.Abs (controller.transform.position.x);
+        float y = Mathf.Abs (controller.transform.position.y);
+        float z = Mathf.Abs (controller.transform.position.z);
+        PrintLoc(x, y, z);
         
         // Movement Input
         Vector3 moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
