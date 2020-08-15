@@ -19,9 +19,28 @@ public class Player : MonoBehaviour {
 
     // update is called every frame
     void Update() {
+        float x = Mathf.Abs (controller.transform.position.x);
+        float y = Mathf.Abs (controller.transform.position.y);
+        float z = Mathf.Abs (controller.transform.position.z);
+        // Temp, remove later: Print location vector
+        string _msg = string.Format("\nX: {0}\nY: {1}\nZ: {2}", 
+                                    x,
+                                    y,
+                                    z
+                                    );
+        Debug.Log(_msg);
+        
         // Movement Input
         Vector3 moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         Vector3 moveVelocity = moveInput.normalized * moveSpeed;
+        if (x > 4) {
+            moveVelocity = moveVelocity * 1;
+            print("X EDGE!");
+        }
+        else if (z > 4) {
+            moveVelocity = moveVelocity * 1;
+            print("Y EDGE!");
+        }
         controller.Move(moveVelocity);
 
         // Look input

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent (typeof (Rigidbody))]
 public class PlayerController : MonoBehaviour {
 
     Vector3 velocity;
@@ -17,7 +17,10 @@ public class PlayerController : MonoBehaviour {
     }
     
     public void LookAt(Vector3 lookPoint) {
-        Vector3 heightCorrectedPoint = new Vector3(lookPoint.x, transform.position.y, lookPoint.z);
+        Vector3 heightCorrectedPoint = new Vector3(lookPoint.x, 
+                                                transform.position.y, 
+                                                lookPoint.z
+                                                );
         transform.LookAt(heightCorrectedPoint);
     }
 
