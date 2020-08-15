@@ -32,18 +32,18 @@ public class Player : MonoBehaviour {
         float x = Mathf.Abs (controller.transform.position.x);
         float y = Mathf.Abs (controller.transform.position.y);
         float z = Mathf.Abs (controller.transform.position.z);
-        PrintLoc(x, y, z);
-        
+        // PrintLoc(x, y, z);
+
         // Movement Input
         Vector3 moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         Vector3 moveVelocity = moveInput.normalized * moveSpeed;
         if (x > 4) {
             moveVelocity = moveVelocity * 1;
-            print("X EDGE!");
+            // print("X EDGE!");
         }
         else if (z > 4) {
             moveVelocity = moveVelocity * 1;
-            print("Y EDGE!");
+            // print("Y EDGE!");
         }
         controller.Move(moveVelocity);
 
