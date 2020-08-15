@@ -717,7 +717,7 @@ GameObject:
   - component: {fileID: 1099487799}
   - component: {fileID: 1099487798}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Obsticle
   m_TagString: Obsticle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
@@ -992,7 +992,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eecd73b72fe6a324e9dc304c18782697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boundarySize: 2
+  boundarySize: 4
 --- !u!1 &1590904692
 GameObject:
   m_ObjectHideFlags: 0

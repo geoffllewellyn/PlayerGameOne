@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gun : MonoBehaviour {
+public class Gun : MonoBehaviour 
+{
     
     public Transform muzzle;
     public Projectile projectile;
@@ -11,8 +12,10 @@ public class Gun : MonoBehaviour {
 
     float nextShotTime;
 
-    public void Shoot() {
-        if (Time.time > nextShotTime) {
+    public void Shoot() 
+    {
+        if (Time.time > nextShotTime) 
+        {
             nextShotTime = Time.time + msBetweenShots / 1000;
             Projectile newProjectile = Instantiate(projectile, 
                                                 muzzle.position,
