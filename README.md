@@ -1,2 +1,2 @@
-# unityGameOne
+# PlayerGameOne
 my first Unity Game...
