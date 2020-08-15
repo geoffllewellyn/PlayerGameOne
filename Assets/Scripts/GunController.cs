@@ -24,5 +24,10 @@ public class GunController : MonoBehaviour {
                                 ) as Gun;
         equippedGun.transform.parent = weaponHold;
     }
-}
 
+    public void Shoot() {
+        if (equippedGun != null) {
+            equippedGun.Shoot();
+        }
+    }
+}
