@@ -16,7 +16,7 @@ public class Boundary : MonoBehaviour
         float newX = map.transform.localScale.x * boundarySize;
         float newZ = map.transform.localScale.z * boundarySize;
         map.transform.localScale = new Vector3 (newX, 1, newZ);
-        
+
         AddNavMeshData();
     }
 
@@ -26,5 +26,6 @@ public class Boundary : MonoBehaviour
     
     void AddNavMeshData() {
         // now rebake the AI Enemy walkable mesh area...
+        
     }
 }
