@@ -4,3 +4,4 @@ Library/*
 Build/*
 .vs/*
 .gitignore
+obj/*
