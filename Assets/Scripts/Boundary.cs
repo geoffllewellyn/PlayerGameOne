@@ -8,7 +8,8 @@ public class Boundary : MonoBehaviour
 {
     public int boundarySize = 1;
     GameObject map;
-    
+    GameObject ground;
+
     // Start is called before the first frame update
     void Start() 
     {
@@ -16,6 +17,8 @@ public class Boundary : MonoBehaviour
         float newX = map.transform.localScale.x * boundarySize;
         float newZ = map.transform.localScale.z * boundarySize;
         map.transform.localScale = new Vector3 (newX, 1, newZ);
+        
+        ground = GameObject.FindGameObjectWithTag ("Ground");
 
         AddNavMeshData();
     }
@@ -26,6 +29,5 @@ public class Boundary : MonoBehaviour
     
     void AddNavMeshData() {
         // now rebake the AI Enemy walkable mesh area...
-        
     }
 }
