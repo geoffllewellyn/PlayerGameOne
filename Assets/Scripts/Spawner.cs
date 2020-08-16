@@ -32,10 +32,10 @@ public class Spawner : MonoBehaviour
             spawnedEnemy.OnDeath += OnEnemyDeath;
         }
 
-        waveWatch();
+        WaveTimer();
     }
 
-    void waveWatch()
+    void WaveTimer()
     {
         if (waveOver && Time.time > nextWaveTime) 
         {
@@ -66,13 +66,17 @@ public class Spawner : MonoBehaviour
             enemiesRemainingToSpawn = currentWave.enemyCount;
             enemiesRemainingAlive = currentWave.enemyCount;
         }
+        else
+        {
+            print("No more waves!");
+        }
     }
 
     [System.Serializable]
     public class Wave {
-        public int enemyCount;
-        public float timeBetweenSpawns;
-        public float timeToNextWaves;
+        public int enemyCount = 1;
+        public float timeBetweenSpawns = 1;
+        public float timeToNextWaves = 1;
 
     }
 }
