@@ -13,6 +13,8 @@ public class Spawner : MonoBehaviour
     int enemiesRemainingToSpawn;
     int enemiesRemainingAlive;
     float nextSpawnTime;
+    float nextWaveTime;
+    bool waveOver = false;
 
     void Start() 
     {
@@ -29,17 +31,28 @@ public class Spawner : MonoBehaviour
             Enemy spawnedEnemy = Instantiate (enemy, Vector3.zero, Quaternion.identity) as Enemy;
             spawnedEnemy.OnDeath += OnEnemyDeath;
         }
+
+        waveWatch();
+    }
+
+    void waveWatch()
+    {
+        if (waveOver && Time.time > nextWaveTime) 
+        {
+            waveOver = false;
+            NextWave();
+        }
     }
 
     void OnEnemyDeath() 
     {
         enemiesRemainingAlive--;
-        // print ("Enemy died..");
-
-        if (enemiesRemainingAlive == 0)
+        if (enemiesRemainingAlive == 0 && !waveOver)
         {
-            print("Go next wave!");
-            NextWave();
+            waveOver = true;
+            print("end of wave");
+            nextWaveTime = Time.time + currentWave.timeToNextWaves;
+
         }
     }
 
@@ -59,6 +72,7 @@ public class Spawner : MonoBehaviour
     public class Wave {
         public int enemyCount;
         public float timeBetweenSpawns;
+        public float timeToNextWaves;
 
     }
 }
