@@ -13,12 +13,25 @@ public class Enemy : MonoBehaviour
     void Start() 
     {
         pathfinder = GetComponent<NavMeshAgent>();
-        target = GameObject.FindGameObjectsWithTag("Player")[0].transform ;
+        target = GameObject.FindGameObjectWithTag("Player").transform ;
+
+        StartCoroutine (UpdatePath ());
     }
 
     // Update is called once per frame
     void Update() 
     {
-        pathfinder.SetDestination (target.position);
+        // potentiall expensive task...
+        // pathfinder.SetDestination (target.position);
+    }
+
+    IEnumerator UpdatePath() {
+        float refreshRate = 1/8f;
+
+        while (target != null) {
+            Vector3 targetPosition = new Vector3(target.position.x, 0, target.position.z);
+            pathfinder.SetDestination (targetPosition);
+            yield return new WaitForSeconds(refreshRate);
+        }
     }
 }
