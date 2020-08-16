@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour 
 {
+    public float maxBulletDistance = 20;
     public LayerMask collisionMask;
     float speed = 10;
     float damage = 1;
@@ -28,14 +29,21 @@ public class Projectile : MonoBehaviour
         if (Physics.Raycast (ray, out hit, moveDistance, 
                             collisionMask, QueryTriggerInteraction.Collide))
         {
-            print("HIT");
+            // print("HIT");
             OnHitObject (hit);
+        }
+
+        if (Mathf.Abs(transform.position.x) > maxBulletDistance |
+            Mathf.Abs(transform.position.z) > maxBulletDistance
+            )
+        {
+            GameObject.Destroy (gameObject);
         }
     }
 
     void OnHitObject (RaycastHit hit)
     {
-        print("HIT");
+        // print("HIT");
         print(hit.collider.gameObject.name);
         IDamageable damageableObject = hit.collider.GetComponent<IDamageable>();
         if (damageableObject != null)

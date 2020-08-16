@@ -15,8 +15,9 @@ public class Boundary : MonoBehaviour
     {
         map = GameObject.FindGameObjectWithTag ("Map");
         float newX = map.transform.localScale.x * boundarySize;
+        float newY = map.transform.localScale.y;
         float newZ = map.transform.localScale.z * boundarySize;
-        map.transform.localScale = new Vector3 (newX, 1, newZ);
+        map.transform.localScale = new Vector3 (newX, newY, newZ);
         
         ground = GameObject.FindGameObjectWithTag ("Ground");
 
