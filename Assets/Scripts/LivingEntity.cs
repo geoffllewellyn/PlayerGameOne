@@ -18,6 +18,17 @@ public class LivingEntity : MonoBehaviour, IDamageable
     }
     public void TakeHit (float damage, RaycastHit hit)
     {
+        // Do more stuff w/ hit variable in future...
+        // ie detect point of hit for projectile. 
+        // create fx at that point for a bullet.
+        health -= damage;
+        if (health <= 0 && !dead) {
+            Die();
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
         health -= damage;
         if (health <= 0 && !dead) {
             Die();
