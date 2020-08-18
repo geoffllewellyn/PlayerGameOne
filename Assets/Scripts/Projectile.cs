@@ -4,10 +4,22 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour 
 {
-    public float maxBulletDistance = 20;
     public LayerMask collisionMask;
     float speed = 10;
     float damage = 1;
+
+    public float maxBulletDistance = 20;
+    float lifetime = 3;
+
+    void Start() 
+    {
+        Destroy (gameObject, lifetime);
+        Collider[] initialCollisions = Physics.OverlapSphere(transform.position, 0.1f, collisionMask);
+        if (initialCollisions.Length > 0)
+        {
+            OnHitObject(initialCollisions[0]);
+        }
+    }
 
     public void SetSpeed (float newSpeed) 
     {
@@ -49,6 +61,16 @@ public class Projectile : MonoBehaviour
         if (damageableObject != null)
         {
             damageableObject.TakeHit (damage, hit);
+        }
+        GameObject.Destroy (gameObject);
+    }
+
+    void OnHitObject (Collider collider)
+    {
+        IDamageable damageableObject = collider.GetComponent<IDamageable>();
+        if (damageableObject != null)
+        {
+            damageableObject.TakeDamage (damage);
         }
         GameObject.Destroy (gameObject);
     }

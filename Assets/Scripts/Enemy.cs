@@ -18,10 +18,13 @@ public class Enemy : LivingEntity
 
     float attackDistanceThreshold = 0.5f;
     float timeBetweenAttacks = 1f;
+    float damage = 1;
 
     float nextAttackTime;
     float myCollisionRadius;
     float targetCollisionRadius;
+
+    bool hasTarget;
 
     // Start is called before the first frame update
     protected override void Start() 
@@ -31,6 +34,7 @@ public class Enemy : LivingEntity
         skinMaterial = GetComponent<Renderer>().material;
         originalColor = skinMaterial.color;
 
+<<<<<<< HEAD
         if (GameObject.FindGameObjectWithTag("Player").transform) {
             currentState = State.Chasing;
             target = GameObject.FindGameObjectWithTag("Player").transform ;
@@ -45,6 +49,25 @@ public class Enemy : LivingEntity
     }
 
     void OnTargetDeath()
+=======
+        if (GameObject.FindGameObjectWithTag("Player") != null)
+        {
+            currentState = State.Chasing;
+            hasTarget = true;
+
+            target = GameObject.FindGameObjectWithTag("Player").transform;
+            targetEntity = target.GetComponent<LivingEntity>();
+            targetEntity.OnDeath += OnTargetDeath;
+
+            myCollisionRadius = GetComponent<CapsuleCollider>().radius;
+            targetCollisionRadius = GetComponent<CapsuleCollider>().radius;
+            
+            StartCoroutine (UpdatePath ());
+        }
+    }
+
+    void OnTargetDeath() 
+>>>>>>> 2831b437bfa9fe98e2b798ddc02d564ee8551d3b
     {
         hasTarget = false;
         currentState = State.Idle;
@@ -54,7 +77,12 @@ public class Enemy : LivingEntity
     void Update() 
     {
         // potentiall expensive task...
+<<<<<<< HEAD
         if (hasTarget) {
+=======
+        if (hasTarget)
+        {
+>>>>>>> 2831b437bfa9fe98e2b798ddc02d564ee8551d3b
             if (Time.time > nextAttackTime) {
                 float sqrDstToTarget = (target.position - transform.position).sqrMagnitude;
                 if (sqrDstToTarget < Mathf.Pow(attackDistanceThreshold + myCollisionRadius + targetCollisionRadius, 2)) {
@@ -79,8 +107,15 @@ public class Enemy : LivingEntity
 
         skinMaterial.color = Color.red;
 
+        bool hasAppliedDamage = false;
+
         while (percent <= 1)
         {
+            if (percent >= 0.5f && !hasAppliedDamage)
+            {
+                hasAppliedDamage = true;
+                targetEntity.TakeDamage(damage);
+            }
             percent += Time.deltaTime * attackSpeed;
             float interpolation = (-Mathf.Pow(percent, 2) + percent) * 4;
             transform.position = Vector3.Lerp(originalPosition, attackPosition, interpolation);
