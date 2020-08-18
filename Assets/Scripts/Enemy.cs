@@ -11,6 +11,7 @@ public class Enemy : LivingEntity
 
     NavMeshAgent pathfinder;
     Transform target;
+    LivingEntity targetEntity;
     Material skinMaterial;
 
     Color originalColor;
@@ -30,24 +31,36 @@ public class Enemy : LivingEntity
         skinMaterial = GetComponent<Renderer>().material;
         originalColor = skinMaterial.color;
 
-        currentState = State.Chasing;
-        target = GameObject.FindGameObjectWithTag("Player").transform ;
+        if (GameObject.FindGameObjectWithTag("Player").transform) {
+            currentState = State.Chasing;
+            target = GameObject.FindGameObjectWithTag("Player").transform ;
+            targetEntity = target.GetComponent<LivingEntity>();
+            targetEntity.OnDeath += OnTargetDeath;
 
-        myCollisionRadius = GetComponent<CapsuleCollider>().radius;
-        targetCollisionRadius = GetComponent<CapsuleCollider>().radius;
-        
-        StartCoroutine (UpdatePath ());
+            myCollisionRadius = GetComponent<CapsuleCollider>().radius;
+            targetCollisionRadius = GetComponent<CapsuleCollider>().radius;
+            
+            StartCoroutine (UpdatePath ());
+        }
+    }
+
+    void OnTargetDeath()
+    {
+        hasTarget = false;
+        currentState = State.Idle;
     }
 
     // Update is called once per frame
     void Update() 
     {
         // potentiall expensive task...
-        if (Time.time > nextAttackTime) {
-            float sqrDstToTarget = (target.position - transform.position).sqrMagnitude;
-            if (sqrDstToTarget < Mathf.Pow(attackDistanceThreshold + myCollisionRadius + targetCollisionRadius, 2)) {
-                nextAttackTime = Time.time + timeBetweenAttacks;
-                StartCoroutine(Attack());
+        if (hasTarget) {
+            if (Time.time > nextAttackTime) {
+                float sqrDstToTarget = (target.position - transform.position).sqrMagnitude;
+                if (sqrDstToTarget < Mathf.Pow(attackDistanceThreshold + myCollisionRadius + targetCollisionRadius, 2)) {
+                    nextAttackTime = Time.time + timeBetweenAttacks;
+                    StartCoroutine(Attack());
+                }
             }
         }
     }
@@ -85,7 +98,7 @@ public class Enemy : LivingEntity
     {
         float refreshRate = 1/8f;
 
-        while (target != null) {
+        while (hasTarget) {
             if (currentState == State.Chasing)
             {
                 Vector3 dirToTarget = (target.position - transform.position).normalized;
