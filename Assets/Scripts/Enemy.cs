@@ -34,9 +34,11 @@ public class Enemy : LivingEntity
         skinMaterial = GetComponent<Renderer>().material;
         originalColor = skinMaterial.color;
 
-<<<<<<< HEAD
-        if (GameObject.FindGameObjectWithTag("Player").transform) {
+        if (GameObject.FindGameObjectWithTag("Player").transform) 
+            {
             currentState = State.Chasing;
+            hasTarget = true;
+
             target = GameObject.FindGameObjectWithTag("Player").transform ;
             targetEntity = target.GetComponent<LivingEntity>();
             targetEntity.OnDeath += OnTargetDeath;
@@ -49,25 +51,6 @@ public class Enemy : LivingEntity
     }
 
     void OnTargetDeath()
-=======
-        if (GameObject.FindGameObjectWithTag("Player") != null)
-        {
-            currentState = State.Chasing;
-            hasTarget = true;
-
-            target = GameObject.FindGameObjectWithTag("Player").transform;
-            targetEntity = target.GetComponent<LivingEntity>();
-            targetEntity.OnDeath += OnTargetDeath;
-
-            myCollisionRadius = GetComponent<CapsuleCollider>().radius;
-            targetCollisionRadius = GetComponent<CapsuleCollider>().radius;
-            
-            StartCoroutine (UpdatePath ());
-        }
-    }
-
-    void OnTargetDeath() 
->>>>>>> 2831b437bfa9fe98e2b798ddc02d564ee8551d3b
     {
         hasTarget = false;
         currentState = State.Idle;
@@ -77,12 +60,8 @@ public class Enemy : LivingEntity
     void Update() 
     {
         // potentiall expensive task...
-<<<<<<< HEAD
-        if (hasTarget) {
-=======
         if (hasTarget)
         {
->>>>>>> 2831b437bfa9fe98e2b798ddc02d564ee8551d3b
             if (Time.time > nextAttackTime) {
                 float sqrDstToTarget = (target.position - transform.position).sqrMagnitude;
                 if (sqrDstToTarget < Mathf.Pow(attackDistanceThreshold + myCollisionRadius + targetCollisionRadius, 2)) {
