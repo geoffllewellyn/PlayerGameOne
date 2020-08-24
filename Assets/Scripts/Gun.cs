@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour 
 {
-    
+    int shotsFired = 0;
     public Transform muzzle;
     public Projectile projectile;
     public float msBetweenShots = 200;
@@ -22,6 +22,8 @@ public class Gun : MonoBehaviour
                                                 muzzle.rotation
                                                 ) as Projectile;
             newProjectile.SetSpeed(muzzleVelocity);
+            shotsFired++;
+            print(shotsFired);
         }
     }
 }

@@ -21,10 +21,7 @@ public class LivingEntity : MonoBehaviour, IDamageable
         // Do more stuff w/ hit variable in future...
         // ie detect point of hit for projectile. 
         // create fx at that point for a bullet.
-        health -= damage;
-        if (health <= 0 && !dead) {
-            Die();
-        }
+        TakeDamage(damage);
     }
 
     public void TakeDamage(float damage)

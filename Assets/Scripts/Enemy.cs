@@ -38,7 +38,7 @@ public class Enemy : LivingEntity
             {
             currentState = State.Chasing;
             hasTarget = true;
-
+            
             target = GameObject.FindGameObjectWithTag("Player").transform ;
             targetEntity = target.GetComponent<LivingEntity>();
             targetEntity.OnDeath += OnTargetDeath;
